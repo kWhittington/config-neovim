@@ -8,12 +8,14 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'kien/ctrlp.vim'
 Plug 'mkarmona/colorsbox'
+Plug 'myusuf3/numbers.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
 
 let mapleader = "\<Space>"
+set number
 
 execute 'source ' INITIALIZERS . '/airline/init.vim'
 execute 'source ' INITIALIZERS . '/colorscheme/init.vim'
