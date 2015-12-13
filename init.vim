@@ -4,6 +4,7 @@ let INITIALIZERS = NVIM_CONFIG . '/initializers'
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'kien/ctrlp.vim'
 Plug 'mkarmona/colorsbox'
@@ -16,4 +17,5 @@ let mapleader = "\<Space>"
 
 execute 'source ' INITIALIZERS . '/airline/init.vim'
 execute 'source ' INITIALIZERS . '/colorscheme/init.vim'
+execute 'source ' INITIALIZERS . '/ctrlp/init.vim'
 execute 'source ' INITIALIZERS . '/ctrlp_cmdpalette/init.vim'
