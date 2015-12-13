@@ -10,4 +10,5 @@ Plug 'tpope/vim-fugitive'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
 
+execute 'source ' INITIALIZERS . '/colorscheme/init.vim'
 execute 'source ' INITIALIZERS . '/airline/init.vim'
