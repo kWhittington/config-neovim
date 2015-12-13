@@ -11,6 +11,7 @@ Plug 'mkarmona/colorsbox'
 Plug 'myusuf3/numbers.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
+Plug 'xolox/vim-easytags'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
 
@@ -21,4 +22,5 @@ execute 'source ' INITIALIZERS . '/airline/init.vim'
 execute 'source ' INITIALIZERS . '/colorscheme/init.vim'
 execute 'source ' INITIALIZERS . '/ctrlp/init.vim'
 execute 'source ' INITIALIZERS . '/ctrlp_cmdpalette/init.vim'
+execute 'source ' INITIALIZERS . '/easytags/init.vim'
 execute 'source ' INITIALIZERS . '/gitgutter/init.vim'
