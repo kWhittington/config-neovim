@@ -7,3 +7,4 @@ created by https://www.gitignore.io/api/vim
 Session.vim
 .netrwhist
 *~
+plugged
