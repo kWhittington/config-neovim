@@ -6,6 +6,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'mkarmona/colorsbox'
 Plug 'tomasr/molokai'
+Plug 'tpope/vim-fugitive'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
 
