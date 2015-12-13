@@ -4,6 +4,7 @@ let INITIALIZERS = NVIM_CONFIG . '/initializers'
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
+Plug 'kien/ctrlp.vim'
 Plug 'mkarmona/colorsbox'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
