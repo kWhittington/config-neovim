@@ -3,11 +3,11 @@ let INITIALIZERS = NVIM_CONFIG . '/initializers'
 
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'kien/ctrlp.vim'
 Plug 'mkarmona/colorsbox'
+Plug 'itchyny/lightline.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tomasr/molokai'
