@@ -1,5 +1,4 @@
 let NVIM_CONFIG = '/Users/kwhittin/.config/nvim'
-let INITIALIZERS = NVIM_CONFIG . '/initializers'
 
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
@@ -16,14 +15,3 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
-
-let mapleader = "\<Space>"
-set number
-
-execute 'source ' INITIALIZERS . '/airline/init.vim'
-execute 'source ' INITIALIZERS . '/colorscheme/init.vim'
-execute 'source ' INITIALIZERS . '/ctrlp/init.vim'
-execute 'source ' INITIALIZERS . '/ctrlp_cmdpalette/init.vim'
-execute 'source ' INITIALIZERS . '/easytags/init.vim'
-execute 'source ' INITIALIZERS . '/gitgutter/init.vim'
-execute 'source ' INITIALIZERS . '/nerdcommenter/init.vim'
