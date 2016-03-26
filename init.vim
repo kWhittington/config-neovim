@@ -12,6 +12,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'xolox/vim-easytags'
+Plug 'easymotion/vim-easymotion'
 Plug 'xolox/vim-misc'
 Plug 'wellsjo/wellsokai.vim'
 call plug#end()
