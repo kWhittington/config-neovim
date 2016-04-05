@@ -1,6 +1,7 @@
 let NVIM_CONFIG = '/Users/kwhittin/.config/nvim'
 
 call plug#begin()
+Plug 'chriskempson/base16-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
