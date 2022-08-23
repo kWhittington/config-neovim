@@ -32,22 +32,30 @@ map <silent> <S-f> :Ag<CR>
 " Hide search highlights
 nnoremap <esc><esc> :silent! nohls<cr>
 
+" Copy file name to clipboard
+nmap cp :let @+ = expand("%:p")<cr>
+
 " See https://github.com/junegunn/vim-plug
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
+Plug 'dag/vim-fish'
 Plug 'dyng/ctrlsf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'jgdavey/vim-blockle'
 Plug 'honza/vim-snippets'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 't9md/vim-choosewin'
@@ -60,7 +68,10 @@ call plug#end()
 
 " vim-choosewin
 nmap - <Plug>(choosewin)
-let g:choosewin_overlay_enable = 1
+let g:choosewin_overlay_enable = 0
+
+" fzf.vim
+let g:fzf_preview_window = ['up:90%', 'ctrl-/']
 
 " vim-numbertoggle
 set number relativenumber
@@ -83,6 +94,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='dark'
 "let g:airline_theme='solarized'
 "let g:airline_theme='flatland'
+" Light Theme
+"let g:airline_theme='light'
+" Dark Theme
 let g:airline_theme='molokai'
 
 " vim-ruby
@@ -108,7 +122,7 @@ autocmd BufNewFile,BufRead *.vue set syntax=javascript
 command! ReloadInitSource source $MYVIMRC
 
 " Light theme
-"colors basic-light
+"color basic-light
 
 " Dark Theme
 color vividchalk
