@@ -1,6 +1,15 @@
 set termguicolors
 " Leader
-let mapleader=','
+let mapleader=' '
+
+filetype plugin indent on
+
+" Neovim host config
+" we're only using python
+let g:python3_host_prog = expand('~/.pyenv/versions/pynvim/bin/python')
+let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_node_provider = 0
 
 " Spellcheck
 setlocal spell spelllang=en_us
@@ -24,16 +33,19 @@ set hidden
 map <silent> <C-\> :Explore<CR>
 
 " Open the file fuzzy finder
-map <silent> <S-t> :Files<CR>
+map <silent> <Leader><S-t> :Telescope find_files<CR>
 
 " Open project-wide text fuzzy finder
-map <silent> <S-f> :Ag<CR>
+map <silent> <Leader><S-f> :Telescope live_grep<CR>
+
+" Open buffers-wide text fuzzy finder
+map <silent> <Leader><S-b> :Telescope buffers<CR>
 
 " Hide search highlights
 nnoremap <esc><esc> :silent! nohls<cr>
 
 " Copy file name to clipboard
-nmap cp :let @+ = expand("%:p")<cr>
+nmap cp :let @+ = expand("%")<cr>
 
 " See https://github.com/junegunn/vim-plug
 call plug#begin()
@@ -44,15 +56,20 @@ Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jgdavey/vim-blockle'
+Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'jeetsukumaran/vim-python-indent-black'
 Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'numirias/semshi'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'raimondi/delimitmate'
 Plug 'scrooloose/nerdcommenter'
+Plug 'SirVer/ultisnips'
+Plug 'tmhedberg/simpylfold'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -66,12 +83,19 @@ Plug 'vivkin/flatland.vim'
 
 call plug#end()
 
+" nerdcommenter
+let g:NERDAltDelims_bash = 1
+let g:NERDAltDelims_javascript = 1
+let g:NERDAltDelims_python = 1
+let g:NERDAltDelims_ruby = 1
+let g:NERDAltDelims_sh = 1
+
 " vim-choosewin
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable = 0
 
 " fzf.vim
-let g:fzf_preview_window = ['up:90%', 'ctrl-/']
+"let g:fzf_preview_window = ['up:80%', 'ctrl-/']
 
 " vim-numbertoggle
 set number relativenumber
@@ -116,10 +140,12 @@ let g:rehash256 = 1
 
 " Javascipt Libraries Syntax
 let g:used_javascript_libs = 'underscore,vue'
-autocmd BufNewFile,BufRead *.vue set syntax=javascript
+autocmd BufNewFile,BufRead *.vue set filetype=javascript
 
 " Custom Commands
+command! Rb set filetype=ruby
 command! ReloadInitSource source $MYVIMRC
+command! StripShellColorCodes %s/\e\[\d\+m//g
 
 " Light theme
 "color basic-light
@@ -127,10 +153,7 @@ command! ReloadInitSource source $MYVIMRC
 " Dark Theme
 color vividchalk
 
-" Use ruby syntax highlighting for new buffers
-set syntax=ruby
-
-set foldlevelstart=4
+set foldlevelstart=12
 " Customized version of folded text, idea by
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 fu! CustomFoldText(string) "{{{1
@@ -173,3 +196,6 @@ fu! CustomFoldText(string) "{{{1
 endf
 
 set foldtext=CustomFoldText('\ ')
+
+" turn off substitute previews
+let &inccommand = ""
