@@ -1,4 +1,4 @@
-s
+set termguicolors
 " Leader
 let mapleader=' '
 
@@ -33,19 +33,15 @@ set hidden
 map <silent> <C-\> :Explore<CR>
 
 " Open the ctags fuzzy finder
-map <Leader><t> :Telescope tags
 map <silent> <Leader><S-t> :Telescope tags<CR>
 
 " Open the file fuzzy finder
-map <Leader><f> :Telescope find_files
 map <silent> <Leader><S-f> :Telescope find_files<CR>
 
 " Open project-wide text fuzzy finder
-map <Leader><p> :Telescope live_grep
 map <silent> <Leader><S-p> :Telescope live_grep<CR>
 
 " Open buffers-wide text fuzzy finder
-map <Leader><b> :Telescope buffers
 map <silent> <Leader><S-b> :Telescope buffers<CR>
 
 " Hide search highlights
