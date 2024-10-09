@@ -33,16 +33,19 @@ set hidden
 map <silent> <C-\> :Explore<CR>
 
 " Open the ctags fuzzy finder
-map <silent> <Leader><S-t> :Telescope tags<CR>
+map <silent> <Leader><S-t> <cmd>lua require('telescope.builtin').help_tags(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
 
 " Open the file fuzzy finder
-map <silent> <Leader><S-f> :Telescope find_files<CR>
+map <silent> <Leader><S-f> <cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
 
 " Open project-wide text fuzzy finder
-map <silent> <Leader><S-p> :Telescope live_grep<CR>
+map <silent> <Leader><S-p> <cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
 
 " Open buffers-wide text fuzzy finder
-map <silent> <Leader><S-b> :Telescope buffers<CR>
+map <silent> <Leader><S-b> <cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
+
+" Search for string under cursor
+map <silent> <Leader><S-s> <cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
 
 " Hide search highlights
 nnoremap <esc><esc> :silent! nohls<cr>
