@@ -63,6 +63,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jgdavey/vim-blockle'
+Plug 'jparise/vim-graphql'
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jeetsukumaran/vim-python-indent-black'
@@ -70,6 +71,7 @@ Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'numirias/semshi'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -298,3 +300,10 @@ function! s:HourColor()
   redraw
   echo g:colors_name
 endfunction
+
+" Telescope Setup
+lua << EOF
+require('telescope').setup {
+}
+require('telescope').load_extension('fzf')
+EOF
