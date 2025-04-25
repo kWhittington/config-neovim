@@ -32,23 +32,8 @@ set hidden
 " Opens the file explorer
 map <silent> <C-\> :Explore<CR>
 
-" Open the ctags fuzzy finder
-map <silent> <Leader><S-t> <cmd>lua require('telescope.builtin').help_tags(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
-
-" Open the file fuzzy finder
-map <silent> <Leader><S-f> <cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
-
-" Open project-wide text fuzzy finder
-map <silent> <Leader><S-p> <cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
-
-" Open buffers-wide text fuzzy finder
-map <silent> <Leader><S-b> <cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
-
-" Search for string under cursor
-map <silent> <Leader><S-s> <cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_cursor({layout_config={height=10,preview_cutoff=120,width=0.99}}))<cr>
-
 " Hide search highlights
-nnoremap <esc><esc> :silent! nohls<cr>
+nnoremap <Leader><S-h> :silent! nohls<cr>
 
 " Copy file name to clipboard
 nmap cp :let @+ = expand("%")<cr>
@@ -304,6 +289,24 @@ endfunction
 " Telescope Setup
 lua << EOF
 require('telescope').setup {
+  defaults = {
+    sorting_strategy = "ascending",
+    layout_strategy = "cursor",
+    layout_config = {
+      cursor = {
+        height = 0.50,
+        width = 0.99,
+        preview_cutoff = 0,
+        preview_width = 0.60,
+      },
+    }
+  },
 }
 require('telescope').load_extension('fzf')
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<Leader><S-t>', builtin.tags, {})
+vim.keymap.set('n', '<Leader><S-f>', builtin.find_files, {})
+vim.keymap.set('n', '<Leader><S-s>', builtin.grep_string, {})
+vim.keymap.set('n', '<Leader><S-p>', builtin.live_grep, {})
+vim.keymap.set('n', '<Leader><S-b>', builtin.buffers, {})
 EOF
