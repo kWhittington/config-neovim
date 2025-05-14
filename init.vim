@@ -301,10 +301,20 @@ require('telescope').setup {
       },
     }
   },
+  pickers = {
+    tags = {
+      only_sort_tags = true
+    },
+  },
 }
 require('telescope').load_extension('fzf')
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<Leader><S-t>', builtin.tags, {})
+vim.keymap.set('n', '<Leader><S-t>', builtin.tags)
+vim.keymap.set('n', '<Leader><C-t>', function()
+  builtin.tags({
+    default_text = vim.fn.expand('<cword>'),
+  })
+end)
 vim.keymap.set('n', '<Leader><S-f>', builtin.find_files, {})
 vim.keymap.set('n', '<Leader><S-s>', builtin.grep_string, {})
 vim.keymap.set('n', '<Leader><S-p>', builtin.live_grep, {})
