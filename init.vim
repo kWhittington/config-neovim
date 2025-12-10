@@ -13,6 +13,8 @@ let g:loaded_node_provider = 0
 
 " Spellcheck
 setlocal spell spelllang=en_us
+set spell
+set spellcapcheck
 
 " Tab/indentions
 set expandtab
