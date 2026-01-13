@@ -4,6 +4,15 @@ let mapleader=' '
 
 filetype plugin indent on
 
+" Performance optimizations
+set lazyredraw              " Don't redraw during macros/mappings
+set synmaxcol=200           " Limit syntax highlighting on very long lines
+set updatetime=300          " Faster completion and better performance
+set ttyfast                 " Better terminal performance
+
+" Large file threshold (1MB = 1048576 bytes)
+let g:large_file_threshold = 1048576
+
 " Neovim host config
 " we're only using python
 let g:python3_host_prog = expand('~/.pyenv/versions/pynvim/bin/python')
@@ -11,9 +20,9 @@ let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_node_provider = 0
 
-" Spellcheck
-setlocal spell spelllang=en_us
-set spell
+" Spellcheck - Limited to specific filetypes for performance
+" Disabled by default; enabled per filetype below
+set nospell
 set spellcapcheck
 
 " Tab/indentions
@@ -96,13 +105,22 @@ let g:choosewin_overlay_enable = 0
 
 " vim-numbertoggle
 set number relativenumber
+" Disable relative numbers in insert mode for better performance
+augroup numbertoggle_perf
+  autocmd!
+  autocmd InsertEnter * set norelativenumber
+  autocmd InsertLeave * set relativenumber
+augroup END
 
 " vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
+" Disabled on startup for better performance; toggle with <Leader>ig
+let g:indent_guides_enable_on_vim_startup = 0
 
 " better-whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
+" Plugin requires KB: convert threshold from bytes to KB (1048576 / 1024 = 1024)
+let g:strip_max_file_size = g:large_file_threshold / 1024
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -122,20 +140,59 @@ let g:airline_theme='molokai'
 " highlight Ruby operators
 let g:ruby_operators = 1
 let g:ruby_pseudo_operators = 1
-" enable Ruby-specific folding
-let g:ruby_fold = 1
+" Ruby folding disabled for performance (syntax-based folding is expensive)
+" Uncomment to enable: let g:ruby_fold = 1
+let g:ruby_fold = 0
 " 1 or 0 (help ruby-hanging-element-indentation)
 let g:ruby_indent_hanging_elements = 0
-" spellcheck Ruby strings
-let g:ruby_spellcheck_strings = 1
+" Ruby string spellcheck disabled for performance
+let g:ruby_spellcheck_strings = 0
 
 " flatland.vim
 " colors molokai
 let g:rehash256 = 1
 
-" Javascipt Libraries Syntax
+" JavaScript Libraries Syntax
 let g:used_javascript_libs = 'underscore,vue'
 autocmd BufNewFile,BufRead *.vue set filetype=javascript
+
+" Large file mode - Disable expensive features for files > 1MB
+" Helper function to check if file should be treated as large
+function! IsLargeFile(filename)
+  let filesize = getfsize(a:filename)
+  " Returns true for files > 1MB or unreadable files (size -2)
+  " Note: New files (size -1) and empty files (size 0) are not treated as large
+  return (filesize > g:large_file_threshold) || (filesize == -2)
+endfunction
+
+augroup large_file_optimizations
+  autocmd!
+  autocmd BufReadPre * if IsLargeFile(expand("<afile>")) | call LargeFile() | endif
+augroup END
+
+function! LargeFile()
+  " Disable syntax highlighting
+  syntax clear
+  " Disable folding
+  setlocal nofoldenable
+  " Disable spellcheck
+  setlocal nospell
+  " Disable swap file
+  setlocal noswapfile
+  " Use absolute line numbers
+  setlocal norelativenumber
+  " Disable undo file
+  setlocal noundofile
+  " Disable whitespace stripping for this buffer only (buffer-local override)
+  let b:better_whitespace_enabled = 0
+  echomsg "Large file detected - performance mode enabled"
+endfunction
+
+" Filetype-specific spellcheck (enabled only for text-like files)
+augroup filetype_spellcheck
+  autocmd!
+  autocmd FileType markdown,text,gitcommit setlocal spell spelllang=en_us
+augroup END
 
 " Custom Commands
 command! Rb set filetype=ruby
