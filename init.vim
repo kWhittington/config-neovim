@@ -10,6 +10,9 @@ set synmaxcol=200           " Limit syntax highlighting on very long lines
 set updatetime=300          " Faster completion and better performance
 set ttyfast                 " Better terminal performance
 
+" Large file threshold (1MB = 1048576 bytes)
+let g:large_file_threshold = 1048576
+
 " Neovim host config
 " we're only using python
 let g:python3_host_prog = expand('~/.pyenv/versions/pynvim/bin/python')
@@ -117,7 +120,7 @@ let g:indent_guides_enable_on_vim_startup = 0
 let g:better_whitespace_enabled=1
 " Strip whitespace on save, but skip for large files (handled in large file mode)
 let g:strip_whitespace_on_save=1
-let g:strip_max_file_size=1000  " Skip files larger than 1000KB
+let g:strip_max_file_size=1000  " Skip files larger than 1000KB (1MB)
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -156,8 +159,8 @@ autocmd BufNewFile,BufRead *.vue set filetype=javascript
 " Large file mode - Disable expensive features for files > 1MB
 augroup large_file_optimizations
   autocmd!
-  " Disable expensive features for large files (> 1MB)
-  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > 1048576 || f == -2 | call LargeFile() | endif
+  " Disable expensive features for large files
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:large_file_threshold || f == -2 | call LargeFile() | endif
 augroup END
 
 function! LargeFile()
