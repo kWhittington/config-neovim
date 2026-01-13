@@ -161,8 +161,9 @@ autocmd BufNewFile,BufRead *.vue set filetype=javascript
 " Helper function to check if file should be treated as large
 function! IsLargeFile(filename)
   let f = getfsize(a:filename)
-  " Returns true for files > 1MB or unreadable files (size -2)
-  return f > g:large_file_threshold || f == -2
+  " Returns true for files > 1MB or unreadable/non-existent files (size <= 0)
+  " Note: New files (size -1) are not treated as large
+  return (f > g:large_file_threshold) || (f == -2)
 endfunction
 
 augroup large_file_optimizations
