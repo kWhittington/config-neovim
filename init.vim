@@ -4,8 +4,18 @@ let mapleader=' '
 
 filetype plugin indent on
 
-" Spellcheck
-setlocal spell spelllang=en_us
+" Performance optimizations
+set lazyredraw
+set ttyfast
+set updatetime=250
+set timeoutlen=500
+set ttimeoutlen=10
+set synmaxcol=200
+set regexpengine=1
+set maxmempattern=1000
+
+" Spellcheck (disabled by default for performance)
+" setlocal spell spelllang=en_us
 
 " Tab/indentions
 set expandtab
@@ -38,9 +48,6 @@ let g:choosewin_overlay_enable = 0
 " vim-numbertoggle
 set number relativenumber
 
-" vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-
 " better-whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
@@ -49,8 +56,8 @@ let g:strip_whitespace_on_save=1
 " highlight Ruby operators
 let g:ruby_operators = 1
 let g:ruby_pseudo_operators = 1
-" enable Ruby-specific folding
-let g:ruby_fold = 1
+" disable Ruby-specific folding for performance
+let g:ruby_fold = 0
 " 1 or 0 (help ruby-hanging-element-indentation)
 let g:ruby_indent_hanging_elements = 0
 " spellcheck Ruby strings
