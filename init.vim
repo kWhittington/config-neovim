@@ -118,10 +118,9 @@ let g:indent_guides_enable_on_vim_startup = 0
 
 " better-whitespace
 let g:better_whitespace_enabled=1
-" Strip whitespace on save, but skip for large files (handled in large file mode)
 let g:strip_whitespace_on_save=1
-" Plugin setting uses KB: 1000KB ≈ 1MB (approximates g:large_file_threshold)
-let g:strip_max_file_size=1000
+" Plugin setting uses KB: derive from large_file_threshold for consistency
+let g:strip_max_file_size = g:large_file_threshold / 1024
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -161,8 +160,8 @@ autocmd BufNewFile,BufRead *.vue set filetype=javascript
 " Helper function to check if file should be treated as large
 function! IsLargeFile(filename)
   let f = getfsize(a:filename)
-  " Returns true for files > 1MB or unreadable/non-existent files (size <= 0)
-  " Note: New files (size -1) are not treated as large
+  " Returns true for files > 1MB or unreadable files (size -2)
+  " Note: New files (size -1) and empty files (size 0) are not treated as large
   return (f > g:large_file_threshold) || (f == -2)
 endfunction
 
