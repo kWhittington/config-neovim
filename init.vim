@@ -2,10 +2,21 @@ set termguicolors
 " Leader
 let mapleader=' '
 
+" Performance optimizations
+set lazyredraw          " Don't redraw screen during macros/scripts
+set ttyfast             " Faster terminal connection
+set updatetime=250      " Reduce CursorHold delay (default is 4000ms)
+set timeoutlen=500      " Faster key sequence timeout
+set ttimeoutlen=10      " Faster key code timeout
+set regexpengine=1      " Use older but faster regex engine
+set synmaxcol=200       " Limit syntax highlighting to first 200 columns
+set maxmempattern=1000  " Limit memory for pattern matching
+
 filetype plugin indent on
 
-" Spellcheck
-setlocal spell spelllang=en_us
+" Spellcheck - disabled by default for performance
+" Enable with :setlocal spell spelllang=en_us
+" setlocal spell spelllang=en_us
 
 " Tab/indentions
 set expandtab
@@ -38,9 +49,6 @@ let g:choosewin_overlay_enable = 0
 " vim-numbertoggle
 set number relativenumber
 
-" vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-
 " better-whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
@@ -49,8 +57,8 @@ let g:strip_whitespace_on_save=1
 " highlight Ruby operators
 let g:ruby_operators = 1
 let g:ruby_pseudo_operators = 1
-" enable Ruby-specific folding
-let g:ruby_fold = 1
+" disable Ruby-specific folding for performance
+let g:ruby_fold = 0
 " 1 or 0 (help ruby-hanging-element-indentation)
 let g:ruby_indent_hanging_elements = 0
 " spellcheck Ruby strings
