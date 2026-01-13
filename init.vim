@@ -149,7 +149,7 @@ let g:ruby_spellcheck_strings = 0
 " colors molokai
 let g:rehash256 = 1
 
-" Javascipt Libraries Syntax
+" JavaScript Libraries Syntax
 let g:used_javascript_libs = 'underscore,vue'
 autocmd BufNewFile,BufRead *.vue set filetype=javascript
 
@@ -174,7 +174,7 @@ function! LargeFile()
   " Disable undo file
   setlocal noundofile
   " Disable whitespace stripping for this buffer
-  let b:disable_whitespace_strip = 1
+  let b:better_whitespace_enabled = 0
   echomsg "Large file detected - performance mode enabled"
 endfunction
 
