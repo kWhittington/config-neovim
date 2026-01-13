@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre" }, {
       vim.opt_local.swapfile = false
       vim.opt_local.undofile = false
       vim.opt_local.foldmethod = "manual"
+      -- Flag for other plugins/autocmds to check if this is a large file
       vim.b.large_file = true
       vim.cmd("syntax clear")
       -- Disable git gutter for large files
@@ -21,4 +22,3 @@ vim.api.nvim_create_autocmd({ "BufReadPre" }, {
 })
 
 return {}
-
