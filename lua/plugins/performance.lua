@@ -1,4 +1,12 @@
 -- Performance optimizations and large file handling
+
+-- Constants for file size thresholds
+local LARGE_FILE_SIZE_KB = 500        -- 500 KB
+local VERY_LARGE_FILE_SIZE_KB = 5000  -- 5 MB (5000 KB)
+local TREESITTER_MAX_FILESIZE = 100 * 1024 -- 100 KB in bytes
+local LARGE_FILE_LINES = 500
+local VERY_LARGE_FILE_LINES = 5000
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -6,11 +14,11 @@ return {
       -- Performance tweaks for Treesitter
       opts.highlight = opts.highlight or {}
       opts.highlight.disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
+        if ok and stats and stats.size > TREESITTER_MAX_FILESIZE then
           return true
         end
+        return false
       end
       return opts
     end,
@@ -20,10 +28,6 @@ return {
     opts = function(_, opts)
       -- Create autocommands for large file handling
       local aug = vim.api.nvim_create_augroup("LargeFileOptimizations", { clear = true })
-      
-      -- Define what constitutes a "large file" (in lines)
-      local large_file_threshold = 500
-      local very_large_file_threshold = 5000
       
       vim.api.nvim_create_autocmd("BufReadPre", {
         group = aug,
@@ -36,8 +40,8 @@ return {
           if ok and stats then
             local size_kb = stats.size / 1024
             
-            -- For very large files (>500KB), disable expensive features
-            if size_kb > 500 then
+            -- For very large files, disable expensive features
+            if size_kb > LARGE_FILE_SIZE_KB then
               vim.b[buf].large_file = true
               
               -- Disable syntax highlighting for very large files
@@ -58,8 +62,8 @@ return {
               -- Disable swap file for large files
               vim.opt_local.swapfile = false
               
-              -- Disable undo file for very large files (>5MB)
-              if size_kb > 5000 then
+              -- Disable undo file for very large files
+              if size_kb > VERY_LARGE_FILE_SIZE_KB then
                 vim.opt_local.undofile = false
               end
             end
@@ -75,7 +79,7 @@ return {
           local line_count = vim.api.nvim_buf_line_count(buf)
           
           -- For files with many lines
-          if line_count > large_file_threshold then
+          if line_count > LARGE_FILE_LINES then
             -- Increase fold level to avoid initial folding overhead
             vim.opt_local.foldlevelstart = 99
             
@@ -84,7 +88,7 @@ return {
           end
           
           -- For very large files by line count
-          if line_count > very_large_file_threshold then
+          if line_count > VERY_LARGE_FILE_LINES then
             -- Disable gitgutter
             vim.b[buf].gitgutter_enabled = 0
             
