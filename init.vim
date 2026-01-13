@@ -159,10 +159,10 @@ autocmd BufNewFile,BufRead *.vue set filetype=javascript
 " Large file mode - Disable expensive features for files > 1MB
 " Helper function to check if file should be treated as large
 function! IsLargeFile(filename)
-  let f = getfsize(a:filename)
+  let filesize = getfsize(a:filename)
   " Returns true for files > 1MB or unreadable files (size -2)
   " Note: New files (size -1) and empty files (size 0) are not treated as large
-  return (f > g:large_file_threshold) || (f == -2)
+  return (filesize > g:large_file_threshold) || (filesize == -2)
 endfunction
 
 augroup large_file_optimizations
