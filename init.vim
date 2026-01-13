@@ -119,7 +119,7 @@ let g:indent_guides_enable_on_vim_startup = 0
 " better-whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
-" Plugin setting uses KB: derive from large_file_threshold for consistency (1024KB)
+" Plugin requires KB: convert threshold from bytes to KB (1048576 / 1024 = 1024)
 let g:strip_max_file_size = g:large_file_threshold / 1024
 
 " vim-airline
