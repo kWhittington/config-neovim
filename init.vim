@@ -158,10 +158,16 @@ let g:used_javascript_libs = 'underscore,vue'
 autocmd BufNewFile,BufRead *.vue set filetype=javascript
 
 " Large file mode - Disable expensive features for files > 1MB
+" Helper function to check if file should be treated as large
+function! IsLargeFile(filename)
+  let f = getfsize(a:filename)
+  " Returns true for files > 1MB or unreadable files (size -2)
+  return f > g:large_file_threshold || f == -2
+endfunction
+
 augroup large_file_optimizations
   autocmd!
-  " Detect large files (> 1MB) or unreadable files (size -2) and call LargeFile()
-  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:large_file_threshold || f == -2 | call LargeFile() | endif
+  autocmd BufReadPre * if IsLargeFile(expand("<afile>")) | call LargeFile() | endif
 augroup END
 
 function! LargeFile()
@@ -177,7 +183,7 @@ function! LargeFile()
   setlocal norelativenumber
   " Disable undo file
   setlocal noundofile
-  " Disable whitespace stripping for this buffer
+  " Disable whitespace stripping for this buffer only (buffer-local override)
   let b:better_whitespace_enabled = 0
   echomsg "Large file detected - performance mode enabled"
 endfunction
